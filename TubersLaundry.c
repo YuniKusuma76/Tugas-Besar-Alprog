@@ -271,7 +271,7 @@ void satuan(){
 	
 }
 
-void menu_jasa(){
+oid jasa(){
 	int jasa;
 	
 	system("cls");
@@ -286,32 +286,45 @@ void menu_jasa(){
 	printf("\t\t|  3. Cuci Kering Setrika                    |   2. Dry Clean only Jas, Kebaya Berpayet, |\n");
 	printf("\t\t|  4. Setrika                                |      Bahan Wol                            |\n");
 	printf("\t\t|  5. Dry Cleaning                           |                                           |\n");
+	printf("\t\t|  0. Back                                   |                                           |\n");
 	printf("\t\t|--------------------------------------------+-------------------------------------------|\n");
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|________________________________________________________________________________________|\n");
 	printf("\t\t  Pilihan Jasa Anda : ");
-	scanf("%d", &jasa);
+	jasa = validasi2();
+	if(jasa == 0){
+		kiloan();
+		
+	}else{
+		
+	}
+layanan();
 }
 
-void menu_layanan(){
+void layanan(){
 	int layanan;
-	
+		
 	system("cls");
 	printf("\n\n\n\n\n");
 	printf("\t\t ________________________________________________________________________________________ \n");
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|==>                               *** JASA YUNA LAUNDRY ***                          <==|\n");
 	printf("\t\t|--------------------------------------------+-------------------------------------------|\n");
-	printf("\t\t|                                            | Catatan:                                  |\n");
-	printf("\t\t| Jenis Layanan :                            |   1. Estimasi selesai Layanan Reguler     |\n");
-	printf("\t\t|  1. Layanan Reguler                        |      adalah 3 - 4 hari                    |\n");
-	printf("\t\t|  2. Layanan Express                        |   2. Estimasi selesai Layanan Express     |\n");
+	printf("\t\t| Jenis Layanan :                            | Catatan:                                  |\n");
+	printf("\t\t|  1. Layanan Reguler                        |   1. Estimasi selesai Layanan Reguler     |\n");
+	printf("\t\t|  1. Layanan Express                        |      adalah 3 - 4 hari                    |\n");
+	printf("\t\t|  0. Back                                   |   2. Estimasi selesai Layanan Express     |\n");
 	printf("\t\t|                                            |      adalah 5 jam - 1 hari                |\n");
 	printf("\t\t|--------------------------------------------+-------------------------------------------|\n");
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|________________________________________________________________________________________|\n");
 	printf("\t\t  Pilih Layanan Anda : ");
-	scanf("%d", &layanan);
+	layanan = validasi1();
+	if(layanan == 0){
+		return jasa();
+	}else{
+		
+	}
 }
 
 void transaksi(){
