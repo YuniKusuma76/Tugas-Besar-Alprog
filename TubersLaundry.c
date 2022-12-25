@@ -241,7 +241,6 @@ double validasi4(){
         }
 }
 
-
 void satuan(){
 	int i, jumlah, banyak;
 	char barang[100];
