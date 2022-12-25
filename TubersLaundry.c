@@ -9,18 +9,18 @@
 //library string//
 #include <string.h>
 
-void waktu();
-void masuk();
-void cover();
-void input_data();
-void kiloan();
-void satuan();
-void jasa();
-void layanan();
-double validasi1();
-double validasi2();
-double validasi3();
-double validasi4();
+void waktu(); //prosedur untuk menyatakan waktu saat program dijalankan//
+void masuk(); //prosedur tampilan awal saat program berjalan//
+void cover(); //prosedur yang menampilkan nama program dan anggota kelompok//
+void input_data(); //prosedur yang meng-inputkan data, berupa pilihan jenis laundry//
+void kiloan(); //prosedur menghitung laundry, jika pada prosedur input_data memilih nomor 1//
+void satuan(); //prosedur menghitung laundry, jika pada prosedur input_data memilih nomor 2//
+void jasa(); //prosedur meng-inputkan jasa yang akan dilakukan//
+void layanan(); //prosedur meng-inpukan layanan yang akan dilakukan//
+double validasi1(); //fungsi validasi pada prosedur input_data dan prosedur layanan//
+double validasi2(); //fungsi validasi pada prosedur kiloan bagian jumlah barang yang diinputkan//
+double validasi3(); //fungsi validasi pada prosedur kiloan bagain berat barangyang diinputkan//
+double validasi4(); //fungsi validasi pada prosedur jasa//
 
 int main(){
 	masuk();
@@ -34,13 +34,13 @@ void waktu(){
  
     time_t Tval;
     Tval = time(NULL);
-    Sys_T = localtime(&Tval); /* Untuk mendapatkan waktu lokal komputer */
-    /* Sys_T = gmtime(&Tval); */ /* Untuk mendapatkan waktu komputer berbasis GMT/UTC */
+    Sys_T = localtime(&Tval); // Untuk mendapatkan waktu lokal komputer //
+    // Sys_T = gmtime(&Tval); // // Untuk mendapatkan waktu komputer berbasis GMT/UTC //
  
     printf("Day of Month = %d - %d - %d", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
 
     printf ( "\n\nThe current date/time is: %s", asctime (Sys_T));
-    /* asctime berfungsi untuk mengubah struct tm menjadi string c dengan format Www Mmm dd hh:mm:ss yyyy */
+    // asctime berfungsi untuk mengubah struct tm menjadi string c dengan format Www Mmm dd hh:mm:ss yyyy //
 }
 
 //prosedur tampilan program awal saat program dijalankan//
@@ -135,36 +135,36 @@ void input_data(){
 			case 2: satuan(); system("pause");
 					break; //jika memilih 2, maka proses akan berlanjut ke prosedur satuan()//
 			
-			case 0: printf("\t\t\t\t _________________________________________________________\n");
-					printf("\t\t\t\t|---------------------------------------------------------|\n");
-					printf("\t\t\t\t| =>>           TERIMAKASIH, SAMPAI JUMPA!            <<= |\n");
-					printf("\t\t\t\t|---------------------------------------------------------|\n");
-					printf("\t\t\t\t|_________________________________________________________|\n");
+			case 0: printf("\t\t _________________________________________________________\n");
+					printf("\t\t|---------------------------------------------------------|\n");
+					printf("\t\t| =>>           TERIMAKASIH, SAMPAI JUMPA!            <<= |\n");
+					printf("\t\t|---------------------------------------------------------|\n");
+					printf("\t\t|_________________________________________________________|\n");
 					exit(1);
 					break; //jika memilih 0, maka akan keluar dari program//
 		}
 	}
 }
 
-//fungsi untuk mengecek inputan pada prosedur input_data dan prosedur kiloan pada bagian layanan//
+//fungsi untuk mengecek inputan pada prosedur input_data dan prosedur layanan//
 double validasi1(){
     double pilihan, select;
     char enter;
         pilihan = scanf("%lf%c", &select, &enter);
         if (pilihan != 2 || enter != '\n'){
         	getchar();
-            printf("\n\t\t\t\t Inputan Anda Salah! Hanya Menerima Inputan Angka!\n");
-            printf("\t\t\t\t Masukkan Angka : ");
+            printf("\n\t\t  Inputan Anda Salah! Hanya Menerima Inputan Angka!\n");
+            printf("\t\t  Masukkan Angka : ");
             return validasi1(); //jika inputannya salah, maka akan ulang meng-inputkan//
                 
         }else if (select<0 || enter !='\n'){
-            printf("\n\t\t\t\t Pilihan yang Anda Masukkan Tidak Tersedia! Masukkan Angka (0/1/2) Saja!\n");
-            printf("\t\t\t\t Masukkan Angka Kembali : ");
+            printf("\n\t\t  Pilihan yang Anda Masukkan Tidak Tersedia! Masukkan Angka (0/1/2) Saja!\n");
+            printf("\t\t  Masukkan Angka Kembali : ");
             return validasi1(); //jika salah memasukkan pilihan, maka akan memilih ulang//
         
         }else if (select>2 || enter !='\n'){
-            printf("\n\t\t\t\t Pilihan yang Anda Masukkan Tidak Tersedia! Masukkan Angka (0/1/2) Saja!\n");
-            printf("\t\t\t\t Masukkan Angka Kembali : ");
+            printf("\n\t\t  Pilihan yang Anda Masukkan Tidak Tersedia! Masukkan Angka (0/1/2) Saja!\n");
+            printf("\t\t  Masukkan Angka Kembali : ");
             return validasi1(); //jika salah memasukkan pilihan, maka akan memilih ulang//
             
         }else{
@@ -192,8 +192,11 @@ void kiloan(){
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t  Jumlah Jenis Barang : ");
 	jumlah = validasi3(); //bagian untuk menginputkan jumlah jenis barang yang dilaundry, kemudian divalidasi sebelum menjutkan proses eksekusi//
+	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+	printf("\t\t  Deskripsikan Jenis Barang dan Banyaknya\n ");
+	//pengulangan untuk meng-input-kan barang - barang yang dilaundry//
     for (i = 0; i < jumlah; ++i){
-        printf("\t\t  Barang ke-%d = ", i+1);
+        printf("\t\t   - Barang ke-%d = ", i+1);
 		scanf("%s%d", &barang[i], &banyak);
     }
     printf("\t\t|========================================================================================|\n");
@@ -201,18 +204,19 @@ void kiloan(){
     berat_barang = validasi4(); //bagian untuk menginputkan berat barang yang di laundry, kemudian divalidasi sebelum menlanjutkan proses eksekusi//
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|________________________________________________________________________________________|\n");
-	jasa();
+	jasa(); //bagian untuk menunjukkan proses selanjutnya//
 }
 
-//fungsi untuk mengecek inputan jumlah barang pada prosedur kiloan//
+//fungsi untuk mengecek inputan jumlah barang pada prosedur kiloan dan prosedur satuan//
 double validasi3(){
     double pilihan, select;
     char enter;
         pilihan = scanf("%lf%c", &select, &enter);
         if (pilihan != 2 || enter != '\n'){
         	getchar();
-            printf("\n\t\t\t\t Inputan Anda Salah! Hanya Menerima Inputan Angka!\n");
-            printf("\t\t\t\t Masukkan Angka : ");
+        	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+            printf("\n\t\t  Inputan Anda Salah! Hanya Menerima Inputan Angka!\n");
+            printf("\t\t  Masukkan Angka : ");
             return validasi3(); //jika inputannya salah, maka akan ulang meng-inputkan//
             
         }else{
@@ -227,20 +231,25 @@ double validasi4(){
         pilihan = scanf("%lf%c", &select, &enter);
         if (pilihan != 2 || enter != '\n'){
         	getchar();
-            printf("\n\t\t\t\t Inputan Anda Salah! Hanya Menerima Inputan Angka!\n");
-            printf("\t\t\t\t Masukkan Angka : ");
+        	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+            printf("\n\t\t  Inputan Anda Salah! Hanya Menerima Inputan Angka!\n");
+            printf("\t\t  Masukkan Angka : ");
             return validasi4(); //jika inputannya salah, maka akan ulang meng-inputkan//
                 
         }else if (select<2 || enter !='\n'){
-            printf("\n\t\t\t\t Berat yang Anda Inputkan tidak memenuhi syarat untuk Jenis Laundry ini! Silakan pilih Jenis yang sesuai!");
-            printf("\t\t\t\t Masukkan Angka Kembal : ");
-            return input_data(); //jika salah memasukkan berat, maka akan memilih ulang jenis laundry//
+        	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+            printf("\n\t\t  Berat yang Anda Inputkan tidak memenuhi syarat untuk Jenis Laundry ini!");
+            printf("\n\t\t  Silakan pilih Jenis yang sesuai!\n");
+            printf("\t\t  Klik Enter...");
+            getchar();
+            input_data(); //jika salah memasukkan berat, maka akan memilih ulang jenis laundry//
             
         }else{
             return select; //jika pilihan benar, maka akan berlanjut ke proses selanjutnya dalam prosedur diatas//
         }
 }
 
+//prosedur untuk menghitung laundry, jika pilihan 2//
 void satuan(){
 	int i, jumlah, banyak;
 	char barang[100];
@@ -259,19 +268,22 @@ void satuan(){
 	printf("\t\t|  3. Harga untuk per Barang-nya adalah Rp.20.000,-                                      |\n");
 	printf("\t\t|--------------------------------------------+-------------------------------------------|\n");
 	printf("\t\t|========================================================================================|\n");
-	printf("\t\t\t\t  Jumlah Jenis Barang : ");
-	scanf("%d", &jumlah);
+	printf("\t\t  Jumlah Jenis Barang : ");
+	jumlah = validasi3(); //bagian untuk menginputkan jumlah jenis barang yang dilaundry, kemudian divalidasi sebelum menjutkan proses eksekusi//
+	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+	printf("\t\t  Deskripsikan Jenis Barang dan Banyaknya\n ");
+	//pengulangan untuk meng-input-kan barang - barang yang dilaundry//
     for (i = 0; i < jumlah; ++i){
-        printf("\t\t\t\t  Barang ke-%d = ", i+1);
+        printf("\t\t   - Barang ke-%d = ", i+1);
 		scanf("%s%d", &barang[i], &banyak);
     }
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|________________________________________________________________________________________|\n");
-	menu_jasa();
-	
+	jasa(); //bagian untuk menunjukkan proses selanjutnya//
 }
 
-oid jasa(){
+//prosedur untuk meng-input-kan jasa pada laundry//
+void jasa(){
 	int jasa;
 	
 	system("cls");
@@ -291,16 +303,51 @@ oid jasa(){
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|________________________________________________________________________________________|\n");
 	printf("\t\t  Pilihan Jasa Anda : ");
-	jasa = validasi2();
+	jasa = validasi2(); //nagian untuk meng-input-kan pilihan jasa yang dipilih, kemudia divalidasi sebelum lanjut ke proses eksekusi//
+	//proses untuk menunjukkan proses jika user memilih 0, jika tidak maka proses akan berlanjut//
 	if(jasa == 0){
 		kiloan();
 		
 	}else{
 		
 	}
-layanan();
+	
+	if(jasa == 0){
+		satuan();
+	}else{
+		
+	}
+	
+layanan(); //bagian untuk menunjukkan proses selanjutnya//
 }
 
+//fungsiuntuk mengecek inputan pada jasa//
+double validasi2(){
+    double pilihan, select;
+    char enter;
+        pilihan = scanf("%lf%c", &select, &enter);
+        if (pilihan != 2 || enter != '\n'){
+        	getchar();
+            printf("\n\t\t  Inputan Anda Salah! Hanya Menerima Inputan Angka!\n");
+            printf("\t\t  Masukkan Angka : ");
+            return validasi2(); //jika inputannya salah, maka akan ulang meng-inputkan//
+                
+        }else if (select<0 || enter !='\n'){
+            printf("\n\t\t  Pilihan yang Anda Masukkan Tidak Tersedia! Masukkan Angka (0/1/2/3/4/5) Saja!\n");
+            printf("\t\t  Masukkan Angka Kembali : ");
+            return validasi2(); //jika salah memasukkan pilihan, maka akan memilih ulang//
+        
+        }else if (select>5 || enter !='\n'){
+            printf("\n\t\t  Pilihan yang Anda Masukkan Tidak Tersedia! Masukkan Angka (0/1/2/3/4/5) Saja!\n");
+            printf("\t\t  Masukkan Angka Kembali : ");
+            return validasi2(); //jika salah memasukkan pilihan, maka akan memilih ulang//
+            
+        }else{
+            return select; //jika pilihan benar, maka akan berlanjut ke proses selanjutnya dalam prosedur diatas//
+        }
+}
+
+//prosedur untuk meng-input-kan layanan pada laundry//
 void layanan(){
 	int layanan;
 		
@@ -312,14 +359,15 @@ void layanan(){
 	printf("\t\t|--------------------------------------------+-------------------------------------------|\n");
 	printf("\t\t| Jenis Layanan :                            | Catatan:                                  |\n");
 	printf("\t\t|  1. Layanan Reguler                        |   1. Estimasi selesai Layanan Reguler     |\n");
-	printf("\t\t|  1. Layanan Express                        |      adalah 3 - 4 hari                    |\n");
+	printf("\t\t|  2. Layanan Express                        |      adalah 3 - 4 hari                    |\n");
 	printf("\t\t|  0. Back                                   |   2. Estimasi selesai Layanan Express     |\n");
 	printf("\t\t|                                            |      adalah 5 jam - 1 hari                |\n");
 	printf("\t\t|--------------------------------------------+-------------------------------------------|\n");
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|________________________________________________________________________________________|\n");
 	printf("\t\t  Pilih Layanan Anda : ");
-	layanan = validasi1();
+	layanan = validasi1(); //bagian untuk meng-input-kan pilihan layanan, kemudian divalidasi sebelum lanjut ke proses eksekusi//
+	//bagian untuk menunjukkan proses yang akan berjalan jika usr memilih 0, jika tidak maka akan lanjut ke proses selanjutnya//
 	if(layanan == 0){
 		return jasa();
 	}else{
