@@ -16,12 +16,12 @@ void kiloan(); //prosedur menghitung laundry, jika pada prosedur input_data memi
 void satuan(); //prosedur menghitung laundry, jika pada prosedur input_data memilih nomor 2//
 void jasa(); //prosedur meng-inputkan jasa yang akan dilakukan//
 void layanan(); //prosedur meng-inpukan layanan yang akan dilakukan//
-void transaksi();
+void transaksi(); //prosedur untuk menghitung transaksi laundry//
 double validasi1(); //fungsi validasi pada prosedur input_data dan prosedur layanan//
 double validasi2(); //fungsi validasi pada prosedur kiloan bagian jumlah barang yang diinputkan//
 double validasi3(); //fungsi validasi pada prosedur kiloan bagain berat barangyang diinputkan//
 double validasi4(); //fungsi validasi pada prosedur jasa//
-double validasi5();
+double validasi5(); //fungsi validasi pada prosedur satuan//
 
 int main(){
 	masuk();
@@ -35,7 +35,7 @@ struct data{
 	int kjumlah, kbanyak;
 	char kbarang[100];
 	float berat_barang;
-	int sjumlah, sbanyak;
+	int sjumlah, sbanyak; 
 	char sbarang[100];
 	int total_sbanyak;
 	int jasa, layanan;
@@ -186,10 +186,17 @@ void kiloan(){
 	printf("\t\t|  1. Perhitungan biaya berdasarkan timbangan yang di laundry dengan berat minimal 2 kg. |\n");
 	printf("\t\t|  2. Jenis Barang pada Kiloan ini berupa Baju, Celana, Jaket, dan Kemeja.               |\n");
 	printf("\t\t|  3. Harga untuk 2 kg-nya sebesar Rp. 12.000,-                                          |\n");
+	printf("\t\t|  4. Ketik '0' untuk kembali ke menu selanjutnya                                        |\n");
 	printf("\t\t|--------------------------------------------+-------------------------------------------|\n");
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t  Jumlah Jenis Barang : ");
 	proses.kjumlah = validasi3(); //bagian untuk menginputkan jumlah jenis barang yang dilaundry, kemudian divalidasi sebelum menjutkan proses eksekusi//
+	if(proses.kjumlah == 0){
+		input_data(); //bagian jika user ingin kembali ke menu sebelumnya, maka akan inputkan angka 0//
+		
+	}else{
+		//jika user tidak mengetikkan angka 0, maka proses akan berlajut//
+	}
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
 	printf("\t\t  Deskripsikan Jenis Barang dan Banyaknya\n ");
 	//pengulangan untuk meng-input-kan barang - barang yang dilaundry//
@@ -265,10 +272,17 @@ void satuan(){
 	printf("\t\t|  2. Jenis Barang pada Satuan ini berupa Selimut, Sarung Bantal, Sarung Guling, Serbet, |\n");
 	printf("\t\t|     dan Sapu Tangan.                                                                   |\n");
 	printf("\t\t|  3. Harga untuk per Barang-nya adalah Rp.20.000,-                                      |\n");
+	printf("\t\t|  4. Ketik '0' untuk kembali ke menu selanjutnya                                        |\n");
 	printf("\t\t|--------------------------------------------+-------------------------------------------|\n");
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t  Jumlah Jenis Barang : ");
 	proses.sjumlah = validasi3(); //bagian untuk menginputkan jumlah jenis barang yang dilaundry, kemudian divalidasi sebelum menjutkan proses eksekusi//
+	if(proses.sjumlah == 0){
+		input_data(); //bagian jika user ingin kembali ke menu sebelumnya, maka akan inputkan angka 0//
+		
+	}else{
+		//jika user tidak mengetikkan angka 0, maka proses akan berlajut//
+	}
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
 	printf("\t\t  Deskripsikan Jenis Barang dan Banyaknya\n ");
 	//pengulangan untuk meng-input-kan barang - barang yang dilaundry//
@@ -284,7 +298,7 @@ void satuan(){
 	jasa(); //bagian untuk menunjukkan proses selanjutnya//
 }
 
-//fungsi untuk mengecek inputan berat_barang pada prosedur kiloan//
+//fungsi untuk mengecek inputan total banyak barang pada prosedur satuan//
 double validasi5(){
     double pilihan, select;
     char enter;
@@ -325,18 +339,19 @@ void jasa(){
 	proses.jasa = validasi2(); //nagian untuk meng-input-kan pilihan jasa yang dipilih, kemudia divalidasi sebelum lanjut ke proses eksekusi//
 	//proses untuk menunjukkan proses jika user memilih 0, jika tidak maka proses akan berlanjut//
 	if(proses.jasa == 0){
-		kiloan();
+		kiloan(); //statement jika user memilih 0, maka akan dialihkan ke menu sebelumnya//
 		
 	}else{
-		layanan();
+		layanan(); //jika user tidak memilih 0, maka proses akan berlanjut//
 	}
 	
 	if(proses.jasa == 0){
-		satuan();
+		satuan(); //statement jika user memilih 0, maka akan dialihkan ke menu sebelumnya//
+		
 	}else{
-		layanan();
+		layanan(); //jika user tidak memilih 0, maka proses akan berlanjut//
 	}
-	
+
 layanan(); //bagian untuk menunjukkan proses selanjutnya//
 }
 
@@ -388,13 +403,14 @@ void layanan(){
 	proses.layanan = validasi1(); //bagian untuk meng-input-kan pilihan layanan, kemudian divalidasi sebelum lanjut ke proses eksekusi//
 	//bagian untuk menunjukkan proses yang akan berjalan jika usr memilih 0, jika tidak maka akan lanjut ke proses selanjutnya//
 	if(proses.layanan == 0){
-		return jasa();
-	}else{
+		jasa(); //statement jika user memilih 0, maka akan dialihkan ke menu sebelumnya//
 		
+	}else{
+		//jika user tidak memilih 0, maka proses akan berlanjut//
 	}
 
 transaksi();
-getchar();
+getchar(); //agar prosedur transaksi terlihat//
 }
 
 void transaksi(){
