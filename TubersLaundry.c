@@ -16,12 +16,17 @@ void kiloan(); //prosedur menghitung laundry, jika pada prosedur input_data memi
 void satuan(); //prosedur menghitung laundry, jika pada prosedur input_data memilih nomor 2//
 void jasa(); //prosedur meng-inputkan jasa yang akan dilakukan//
 void layanan(); //prosedur meng-inpukan layanan yang akan dilakukan//
-void transaksi(); //prosedur untuk menghitung transaksi laundry//
+void perhitungan(); //prosedur untuk menghitung transaksi laundry//
+void pilih_transaksi();
+void pilih_waktu();
+void transaksi();
+void pengulangan();
 double validasi1(); //fungsi validasi pada prosedur input_data dan prosedur layanan//
 double validasi2(); //fungsi validasi pada prosedur kiloan bagian jumlah barang yang diinputkan//
 double validasi3(); //fungsi validasi pada prosedur kiloan bagain berat barangyang diinputkan//
 double validasi4(); //fungsi validasi pada prosedur jasa//
 double validasi5(); //fungsi validasi pada prosedur satuan//
+double validasi6();
 
 int main(){
 	masuk();
@@ -44,6 +49,8 @@ struct data{
 	int total_sbanyak; //variabel untuk menyimpan total keseluruhan dari banyak barang yang diinputkan//
 	int jasa, //variabel untuk menyimpan pilihan jasa yang akan diinputkan//
 		layanan; //variabel untuk menyimpan pilihan layanan yang akan diinputkan//
+	double trans_pilih,
+		   waktu_pilih;
 }proses;
 
 //prosedur tampilan program awal saat program dijalankan//
@@ -416,11 +423,11 @@ void layanan(){
 		//jika user tidak memilih 0, maka proses akan berlanjut//
 	}
 
-transaksi();
+perhitungan();
 getchar(); //agar prosedur transaksi terlihat//
 }
 
-void transaksi(){
+void perhitungan(){
 	int pilihan, opsi; //prosedur input_data//
 	int k, kjumlah, kbanyak; //prosedur kiloan//
 	char kbarang[100];
@@ -446,8 +453,11 @@ void transaksi(){
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|==>                               *** JASA YUNA LAUNDRY ***                          <==|\n");
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+	//untuk mendapatkan nomor transaksi atau resi//
 	printf("\t\t  Nomor Transaksi : %0.dYN\n", &nomor);
+	//untuk mendapatkan tanggal saat [rogram dijalankan//
 	printf("\t\t  Tanggal Terima  : %d - %d - %d\n", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	//untuk mendapatkan tanggal selesai sesuai layanan yang dipilih//
 	if(proses.layanan == 1){
 		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+4, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
 	
@@ -456,6 +466,7 @@ void transaksi(){
 	}
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
 	printf("\t\t|========================================================================================|\n");
+	//perhitungan jika user memilih pilihan 1 yaitu kiloan//
 	if(proses.pilihan == 1){
 		printf("\t\t  DETAIL PESANAN KILOAN : \n");
 		printf("\t\t  1. Berat Barang Kiloan           : %0.2f Kg\n", proses.berat_barang);
@@ -477,7 +488,7 @@ void transaksi(){
 		
 		}
 	}
-	//transaksi satuan//
+	//perhitungan jika user memilih pilihan 2 yaitu satuan//
 	if(proses.pilihan == 2){
 		printf("\t\t  DETAIL PESANAN SATUAN : \n");
 		printf("\t\t  1. Total Banyak Barang Satuan    : %d Barang\n", proses.total_sbanyak);
@@ -500,6 +511,7 @@ void transaksi(){
 		}
 	}
 	printf("\t\t|========================================================================================|\n");
+	//perhitungan keseluruhan tagihan//
 	printf("\t\t  DETAIL HARGA TOTAL : \n");
 	biaya_berat = proses.berat_barang * 6000;
 	printf("\t\t  1. Total Tagihan Kiloan          : Rp. %0.f\n", biaya_berat);
@@ -517,5 +529,253 @@ void transaksi(){
 	printf("\t\t  Total Tagihan Keseluruhan       : Rp. %0.f\n", total);
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|________________________________________________________________________________________|\n");
+	printf("\t\t Tekan Tombol Enter Untuk Melanjutkan...");
+	getchar(); //untuk bisa menampilkan kata diatas kemudian dilanjutkan ke prosedur pilih_transaksi()//
+	pilih_transaksi(); //untuk menunjukkan proses selanjutnya//
+
+}
+
+void pilih_transaksi(){
+	double trans_pilih;
 	
+	system("cls");
+	printf("\n\n\n\n\n");
+	printf("\t\t ________________________________________________________________________________________ \n");
+	printf("\t\t|========================================================================================|\n");
+	printf("\t\t|==>                               *** JASA YUNA LAUNDRY ***                          <==|\n");
+	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+	printf("\t\t| Pilih Jenis Pembayaran Anda :                                                          |\n");
+	printf("\t\t| 1. Cash                                                                                |\n");
+	printf("\t\t| 2. Transfer                                                                            |\n");
+	printf("\t\t| 0. Back                                                                                |\n");
+	printf("\t\t|========================================================================================|\n");
+	printf("\t\t|________________________________________________________________________________________|\n");
+	printf("\t\t  Pilih Jenis Pembayaran Anda : ");
+	proses.trans_pilih = validasi1();
+
+pilih_waktu();
+getchar();
+}
+
+void pilih_waktu(){
+	double waktu_pilih;
+	
+	system("cls");
+	printf("\n\n\n\n\n");
+	printf("\t\t ________________________________________________________________________________________ \n");
+	printf("\t\t|========================================================================================|\n");
+	printf("\t\t|==>                               *** JASA YUNA LAUNDRY ***                          <==|\n");
+	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+	printf("\t\t| Pilih Waktu Pembayaran Anda :                                                          |\n");
+	printf("\t\t| 1. Bayar Sekarang                                                                      |\n");
+	printf("\t\t| 2. Bayar Nanti                                                                         |\n");
+	printf("\t\t| 0. Back                                                                                |\n");
+	printf("\t\t|========================================================================================|\n");
+	printf("\t\t|________________________________________________________________________________________|\n");
+	printf("\t\t  Pilih Waktu Pembayaran Anda : ");
+	proses.waktu_pilih = validasi1();
+
+transaksi();
+getchar();
+}
+
+void transaksi(){
+	int pilihan, opsi; //prosedur input_data//
+	int k, kjumlah, kbanyak; //prosedur kiloan//
+	char kbarang[100];
+	float berat_barang;
+	int s, sjumlah, sbanyak; //prosedur satuan//
+	char sbarang[100];
+	int total_sbanyak; //variabel prosedur satuan untuk meyimpan total banyak barang satuan//
+	int jasa, layanan;
+	int nomor, //untuk mendapatkan nomor transaksi//
+		biaya_jumlah; //variabel total tagihan harga total jumlah prosedur satuan//
+	float biaya_berat, //variabel total tagihan harga berat barang per kg prosedur kiloan//
+		total; //total tagihan keseluruhan//
+	int uang, no_trans;
+	float kembalian;
+	
+	struct tm *Sys_T;
+    time_t Tval;
+    Tval = time(NULL);
+    Sys_T = localtime(&Tval); // Untuk mendapatkan waktu lokal komputer //
+    // Sys_T = gmtime(&Tval); // // Untuk mendapatkan waktu komputer berbasis GMT/UTC //
+    
+	system("cls");
+	printf("\n\n\n\n\n");
+	printf("\t\t ________________________________________________________________________________________ \n");
+	printf("\t\t|========================================================================================|\n");
+	printf("\t\t|==>                               *** JASA YUNA LAUNDRY ***                          <==|\n");
+	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+	//untuk mendapatkan nomor transaksi atau resi//
+	printf("\t\t  Nomor Transaksi : %0.dYN\n", &nomor);
+	//untuk mendapatkan tanggal saat [rogram dijalankan//
+	printf("\t\t  Tanggal Terima  : %d - %d - %d\n", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	//untuk mendapatkan tanggal selesai sesuai layanan yang dipilih//
+	if(proses.layanan == 1){
+		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+4, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	
+	}else if(proses.layanan == 2){
+		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+1, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	}
+	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+	printf("\t\t|========================================================================================|\n");
+	//perhitungan jika user memilih pilihan 1 yaitu kiloan//
+	if(proses.pilihan == 1){
+		printf("\t\t  DETAIL PESANAN KILOAN : \n");
+		printf("\t\t  1. Berat Barang Kiloan           : %0.2f Kg\n", proses.berat_barang);
+		printf("\t\t     Total Harga Berat Barang      : %0.2f X Rp. 6.000\n", proses.berat_barang);
+		if(proses.jasa == 1){
+			printf("\t\t  2. Jenis Jasa                    : Cuci Basah\n");
+
+		}else if(proses.jasa == 2){
+			printf("\t\t  2. Jenis Jasa                    : Cuci Kering\n");
+		
+		}else if(proses.jasa == 3){
+			printf("\t\t  2. Jenis Jasa                    : Cuci Kering Setrika\n");
+		
+		}else if(proses.jasa == 4){
+			printf("\t\t  2. Jenis Jasa                    : Setrika\n");
+		
+		}else if(proses.jasa == 5){
+			printf("\t\t  2. Jenis Jasa                    : Dry Cleaning\n");
+		
+		}
+	}
+	//perhitungan jika user memilih pilihan 2 yaitu satuan//
+	if(proses.pilihan == 2){
+		printf("\t\t  DETAIL PESANAN SATUAN : \n");
+		printf("\t\t  1. Total Banyak Barang Satuan    : %d Barang\n", proses.total_sbanyak);
+		printf("\t\t     Total Harga Barang            : %d X Rp. 20.000\n", proses.total_sbanyak);
+		if(proses.jasa == 1){
+			printf("\t\t  2. Jenis Jasa                    : Cuci Basah\n");
+		
+		}else if(proses.jasa == 2){
+			printf("\t\t  2. Jenis Jasa                    : Cuci Kering\n");
+		
+		}else if(proses.jasa == 3){
+			printf("\t\t  2. Jenis Jasa                    : Cuci Kering Setrika\n");
+		
+		}else if(proses.jasa == 4){
+			printf("\t\t  2. Jenis Jasa                    : Setrika\n");
+		
+		}else if(proses.jasa == 5){
+			printf("\t\t  2. Jenis Jasa                    : Dry Cleaning\n");
+		
+		}
+	}
+	printf("\t\t|========================================================================================|\n");
+	//perhitungan keseluruhan tagihan//
+	printf("\t\t  DETAIL HARGA TOTAL : \n");
+	biaya_berat = proses.berat_barang * 6000;
+	printf("\t\t  1. Total Tagihan Kiloan          : Rp. %0.f\n", biaya_berat);
+	biaya_jumlah = proses.total_sbanyak * 20000;
+	printf("\t\t  2. Total Tagihan Satuan          : Rp. %d\n", biaya_jumlah);
+	if(proses.layanan == 1){
+		layanan = 0;
+		printf("\t\t  3. Layanan Reguler               : Rp. 0\n");
+	}else if(proses.layanan == 2){
+		layanan = 20000;
+		printf("\t\t  3. Layanan Express               : Rp. 10.000\n");
+	}
+	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+	total = biaya_berat + biaya_jumlah + layanan;
+	printf("\t\t  Total Tagihan Keseluruhan       : Rp. %0.f\n", total);
+	printf("\t\t|========================================================================================|\n");
+	if(proses.trans_pilih == 1){
+		if(proses.waktu_pilih == 1){
+			printf("\t\t  Masukkan Nominal                 : ");
+			uang = validasi5();
+			kembalian = uang - total;
+			printf("\t\t  Kembalian                        : Rp. %0.f\n", kembalian);
+			printf("\t\t|----------------------------------------------------------------------------------------|\n");
+			printf("\t\t|                   *** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***                       |\n");
+			printf("\t\t|========================================================================================|\n");
+			printf("\t\t|________________________________________________________________________________________|\n");
+			
+		}else if(proses.waktu_pilih == 2){
+			printf("\t\t|                   *** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***                       |\n");
+			printf("\t\t|                Silakan Lakukan Pembayaran Saat Pengambilan Laundry                     |\n");
+			printf("\t\t|========================================================================================|\n");
+			printf("\t\t|________________________________________________________________________________________|\n");
+		}
+		
+	}else if(proses.trans_pilih == 2){
+		if(proses.waktu_pilih == 1){
+			printf("\t\t  Masukkan Nomor Transaksi         : ");
+			no_trans = validasi5();
+			printf("\t\t  Status Pembayaran                : SUKSES!");
+			printf("\t\t|----------------------------------------------------------------------------------------|\n");
+			printf("\t\t|                   *** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***                       |\n");
+			printf("\t\t|========================================================================================|\n");
+			printf("\t\t|________________________________________________________________________________________|\n");
+			
+		}else if(proses.waktu_pilih == 2){
+			printf("\t\t|                   *** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***                       |\n");
+			printf("\t\t|                Silakan Lakukan Pembayaran Saat Pengambilan Laundry                     |\n");
+			printf("\t\t|========================================================================================|\n");
+			printf("\t\t|________________________________________________________________________________________|\n");
+		}
+	}
+	printf("\t\t Tekan Tombol Enter Untuk Melanjutkan...");
+	getchar(); //untuk bisa menampilkan kata diatas kemudian dilanjutkan ke prosedur pengulangan()//
+	pengulangan(); //untuk menunjukkan proses selanjutnya//
+}
+
+void pengulangan(){
+	double reset;
+	int opsi;
+	
+	system("cls");
+	printf("\n\n\n\n\n");
+	printf("\t\t\t\t ________________________________\n");
+	printf("\t\t\t\t|--------------------------------|\n");
+	printf("\t\t\t\t| =>> Ingin Menghitung Kembali?  |\n\n");
+	printf("\t\t\t\t|--------------------------------|\n");
+	printf("\t\t\t\t| 1. Ya                          |\n");
+	printf("\t\t\t\t| 2. Tidak                       |\n");
+	printf("\t\t\t\t|________________________________|\n");
+	printf("\t\t\t\t Masukkan Pilihan : ");
+	reset = validasi6();
+	opsi = ceil(reset);
+    
+	if(reset==1){
+		system("cls");
+		input_data();
+	}else if(reset==2) {
+        system("cls");
+		printf("\t\t\t\t _________________________________________________________\n");
+		printf("\t\t\t\t|---------------------------------------------------------|\n");
+		printf("\t\t\t\t| =>>           TERIMAKASIH, SAMPAI JUMPA!            <<= |\n");
+		printf("\t\t\t\t|---------------------------------------------------------|\n");
+		printf("\t\t\t\t|_________________________________________________________|\n");
+        getchar();
+        exit(1);
+    }
+}
+
+//Berikut adalah validasi inputan pilihan dari prosedur pengulangan//
+double validasi6(){
+    double pilihan, select;
+    char enter;
+        pilihan = scanf("%lf%c", &select, &enter);
+        if (pilihan != 2 || enter != '\n'){
+        	getchar();
+            printf("\n\t\t\t\t Pilihan Anda Salah! Hanya Menerima Inputan Angka!\n");
+            printf("\t\t\t\t Masukkan Angka : ");
+            return validasi6();
+                
+        }else if (select<1 || enter !='\n'){
+            printf("\n\t\t\t\t Pilihan yang Anda Masukkan Tidak Tersedia! Masukkan Angka (1/2) Saja!\n");
+            printf("\t\t\t\t Masukkan Angka Kembali : ");
+            return validasi6();
+        
+        }else if (select>2 || enter !='\n'){
+            printf("\n\t\t\t\t Pilihan yang Anda Masukkan Tidak Tersedia! Masukkan Angka (1/2) Saja!\n");
+            printf("\t\t\t\t Masukkan Angka Kembali : ");
+            return validasi6();
+            
+        }else{
+            return select;
+        }
 }
