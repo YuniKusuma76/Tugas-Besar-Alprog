@@ -9,7 +9,6 @@
 //library string//
 #include <string.h>
 
-void waktu(); //prosedur untuk menyatakan waktu saat program dijalankan//
 void masuk(); //prosedur tampilan awal saat program berjalan//
 void cover(); //prosedur yang menampilkan nama program dan anggota kelompok//
 void input_data(); //prosedur yang meng-inputkan data, berupa pilihan jenis laundry//
@@ -17,31 +16,30 @@ void kiloan(); //prosedur menghitung laundry, jika pada prosedur input_data memi
 void satuan(); //prosedur menghitung laundry, jika pada prosedur input_data memilih nomor 2//
 void jasa(); //prosedur meng-inputkan jasa yang akan dilakukan//
 void layanan(); //prosedur meng-inpukan layanan yang akan dilakukan//
+void transaksi();
 double validasi1(); //fungsi validasi pada prosedur input_data dan prosedur layanan//
 double validasi2(); //fungsi validasi pada prosedur kiloan bagian jumlah barang yang diinputkan//
 double validasi3(); //fungsi validasi pada prosedur kiloan bagain berat barangyang diinputkan//
 double validasi4(); //fungsi validasi pada prosedur jasa//
+double validasi5();
 
 int main(){
 	masuk();
 	system("pause");
 	cover();
+	system("pause");
+	input_data();
 }
 
-//prosedur memanggil waktu pada saat program dijalankan//
-void waktu(){
-    struct tm *Sys_T;
- 
-    time_t Tval;
-    Tval = time(NULL);
-    Sys_T = localtime(&Tval); // Untuk mendapatkan waktu lokal komputer //
-    // Sys_T = gmtime(&Tval); // // Untuk mendapatkan waktu komputer berbasis GMT/UTC //
- 
-    printf("Day of Month = %d - %d - %d", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
-
-    printf ( "\n\nThe current date/time is: %s", asctime (Sys_T));
-    // asctime berfungsi untuk mengubah struct tm menjadi string c dengan format Www Mmm dd hh:mm:ss yyyy //
-}
+struct data{
+	int kjumlah, kbanyak;
+	char kbarang[100];
+	float berat_barang;
+	int sjumlah, sbanyak;
+	char sbarang[100];
+	int total_sbanyak;
+	int jasa, layanan;
+}proses;
 
 //prosedur tampilan program awal saat program dijalankan//
 void masuk(){
@@ -174,9 +172,9 @@ double validasi1(){
 
 //prosedur untuk menghitung laundry, jika pilihan 1//
 void kiloan(){
-	int i, jumlah, banyak;
-	char barang[100];
-	int berat_barang;
+	int k, kjumlah, kbanyak;
+	char kbarang[100];
+	float berat_barang;
 	
 	system("cls");
 	printf("\n\n\n\n\n");
@@ -191,17 +189,17 @@ void kiloan(){
 	printf("\t\t|--------------------------------------------+-------------------------------------------|\n");
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t  Jumlah Jenis Barang : ");
-	jumlah = validasi3(); //bagian untuk menginputkan jumlah jenis barang yang dilaundry, kemudian divalidasi sebelum menjutkan proses eksekusi//
+	proses.kjumlah = validasi3(); //bagian untuk menginputkan jumlah jenis barang yang dilaundry, kemudian divalidasi sebelum menjutkan proses eksekusi//
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
 	printf("\t\t  Deskripsikan Jenis Barang dan Banyaknya\n ");
 	//pengulangan untuk meng-input-kan barang - barang yang dilaundry//
-    for (i = 0; i < jumlah; ++i){
-        printf("\t\t   - Barang ke-%d = ", i+1);
-		scanf("%s%d", &barang[i], &banyak);
+    for (k = 0; k < proses.kjumlah; ++k){
+        printf("\t\t   - Barang ke-%d = ", k+1);
+		scanf("%s%d", &proses.kbarang[k], &proses.kbanyak);
     }
     printf("\t\t|========================================================================================|\n");
     printf("\t\t  Berat Barang : ");
-    berat_barang = validasi4(); //bagian untuk menginputkan berat barang yang di laundry, kemudian divalidasi sebelum menlanjutkan proses eksekusi//
+    proses.berat_barang = validasi4(); //bagian untuk menginputkan berat barang yang di laundry, kemudian divalidasi sebelum menlanjutkan proses eksekusi//
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|________________________________________________________________________________________|\n");
 	jasa(); //bagian untuk menunjukkan proses selanjutnya//
@@ -251,8 +249,9 @@ double validasi4(){
 
 //prosedur untuk menghitung laundry, jika pilihan 2//
 void satuan(){
-	int i, jumlah, banyak;
-	char barang[100];
+	int s, sjumlah, sbanyak;
+	char sbarang[100];
+	int total_sbanyak;
 	
 	system("cls");
 	printf("\n\n\n\n\n");
@@ -269,17 +268,37 @@ void satuan(){
 	printf("\t\t|--------------------------------------------+-------------------------------------------|\n");
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t  Jumlah Jenis Barang : ");
-	jumlah = validasi3(); //bagian untuk menginputkan jumlah jenis barang yang dilaundry, kemudian divalidasi sebelum menjutkan proses eksekusi//
+	proses.sjumlah = validasi3(); //bagian untuk menginputkan jumlah jenis barang yang dilaundry, kemudian divalidasi sebelum menjutkan proses eksekusi//
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
 	printf("\t\t  Deskripsikan Jenis Barang dan Banyaknya\n ");
 	//pengulangan untuk meng-input-kan barang - barang yang dilaundry//
-    for (i = 0; i < jumlah; ++i){
-        printf("\t\t   - Barang ke-%d = ", i+1);
-		scanf("%s%d", &barang[i], &banyak);
+    for (s = 0; s < proses.sjumlah; ++s){
+        printf("\t\t   - Barang ke-%d = ", s+1);
+		scanf("%s%d", &proses.sbarang[s], &proses.sbanyak);
     }
+    printf("\t\t|========================================================================================|\n");
+    printf("\t\t  Banyak Keseluruhan Barang : ");
+    proses.total_sbanyak = validasi5();
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|________________________________________________________________________________________|\n");
 	jasa(); //bagian untuk menunjukkan proses selanjutnya//
+}
+
+//fungsi untuk mengecek inputan berat_barang pada prosedur kiloan//
+double validasi5(){
+    double pilihan, select;
+    char enter;
+        pilihan = scanf("%lf%c", &select, &enter);
+        if (pilihan != 2 || enter != '\n'){
+        	getchar();
+        	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+            printf("\n\t\t  Inputan Anda Salah! Hanya Menerima Inputan Angka!\n");
+            printf("\t\t  Masukkan Angka : ");
+            return validasi5(); //jika inputannya salah, maka akan ulang meng-inputkan//
+            
+        }else{
+            return select; //jika pilihan benar, maka akan berlanjut ke proses selanjutnya dalam prosedur diatas//
+        }
 }
 
 //prosedur untuk meng-input-kan jasa pada laundry//
@@ -303,19 +322,19 @@ void jasa(){
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|________________________________________________________________________________________|\n");
 	printf("\t\t  Pilihan Jasa Anda : ");
-	jasa = validasi2(); //nagian untuk meng-input-kan pilihan jasa yang dipilih, kemudia divalidasi sebelum lanjut ke proses eksekusi//
+	proses.jasa = validasi2(); //nagian untuk meng-input-kan pilihan jasa yang dipilih, kemudia divalidasi sebelum lanjut ke proses eksekusi//
 	//proses untuk menunjukkan proses jika user memilih 0, jika tidak maka proses akan berlanjut//
-	if(jasa == 0){
+	if(proses.jasa == 0){
 		kiloan();
 		
 	}else{
-		
+		layanan();
 	}
 	
-	if(jasa == 0){
+	if(proses.jasa == 0){
 		satuan();
 	}else{
-		
+		layanan();
 	}
 	
 layanan(); //bagian untuk menunjukkan proses selanjutnya//
@@ -366,41 +385,75 @@ void layanan(){
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|________________________________________________________________________________________|\n");
 	printf("\t\t  Pilih Layanan Anda : ");
-	layanan = validasi1(); //bagian untuk meng-input-kan pilihan layanan, kemudian divalidasi sebelum lanjut ke proses eksekusi//
+	proses.layanan = validasi1(); //bagian untuk meng-input-kan pilihan layanan, kemudian divalidasi sebelum lanjut ke proses eksekusi//
 	//bagian untuk menunjukkan proses yang akan berjalan jika usr memilih 0, jika tidak maka akan lanjut ke proses selanjutnya//
-	if(layanan == 0){
+	if(proses.layanan == 0){
 		return jasa();
 	}else{
 		
 	}
 
+transaksi();
+getchar();
 }
 
 void transaksi(){
-	int harga, tagihan, berat_barang;
-	int layanan_reguler = 0;
-	int layanan_express = 20.000;
+	int pilihan, opsi;
+	int k, kjumlah, kbanyak;
+	char kbarang[100];
+	float berat_barang, biaya_berat;
+	int s, sjumlah, sbanyak, banyak;
+	char sbarang[100];
+	int jasa, layanan;
+	int nomor, biaya_jumlah;
+	float total;
 	
+	struct tm *Sys_T;
+    time_t Tval;
+    Tval = time(NULL);
+    Sys_T = localtime(&Tval); // Untuk mendapatkan waktu lokal komputer //
+    // Sys_T = gmtime(&Tval); // // Untuk mendapatkan waktu komputer berbasis GMT/UTC //
+    
 	system("cls");
 	printf("\n\n\n\n\n");
 	printf("\t\t ________________________________________________________________________________________ \n");
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|==>                               *** JASA YUNA LAUNDRY ***                          <==|\n");
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
-	printf("\t\t| Detail Biaya : ");
-	if(kiloan){
-		harga = berat_barang * 12.000;
-		printf("\t\t  Total Tagihan : Rp. %d", harga);
-		if(layanan == 1){
-			printf("\t\t  Layanan Reguler : Rp. %d", layanan_reguler);
-			tagihan = harga + layanan_reguler;
-			printf("\t\t  Grand Total Tagihan : Rp. %d", tagihan);
-			
-		}else(layanan == 2){
-			printf("\t\t  Layanan Express : Rp. %d", layanan_express);
-			tagihan = harga + layanan_express;
-			printf("\t\t  Grand Total Tagihan : Rp. %d", tagihan);
-			
-		}
+	printf("\t\t  Nomor Transaksi : %0.dYN\n", &nomor);
+	printf("\t\t  Tanggal Terima  : %d - %d - %d\n", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	if(proses.layanan == 1){
+		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+4, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	
+	}else if(proses.layanan == 2){
+		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+1, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
 	}
+	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+	printf("\t\t|========================================================================================|\n");
+	printf("\t\t  DETAIL PESANAN KILOAN : \n");
+	printf("\t\t  1. Berat Barang Kiloan       : %0.2f Kg\n", proses.berat_barang);
+	printf("\t\t     Total Harga Berat Barang  : %0.2f X Rp. 6.000\n", proses.berat_barang);
+	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+	printf("\t\t  DETAIL PESANAN SATUAN : \n");
+	printf("\t\t  1. Total Banyak Barang Satuan       : %d Barang\n", proses.total_sbanyak);
+	printf("\t\t     Total Harga Barang               : %d X Rp. 20.000\n", proses.total_sbanyak);
+	printf("\t\t|========================================================================================|\n");
+	printf("\t\t  DETAIL HARGA TOTAL : \n");
+	biaya_berat = proses.berat_barang * 6000;
+	printf("\t\t  1. Total Tagihan Kiloan      : Rp. %0.f\n", biaya_berat);
+	biaya_jumlah = proses.total_sbanyak * 20000;
+	printf("\t\t  2. Total Tagihan Satuan      : Rp. %d\n", biaya_jumlah);
+	if(proses.layanan == 1){
+		layanan = 0;
+		printf("\t\t  3. Layanan Reguler           : Rp. 0\n");
+	}else if(proses.layanan == 2){
+		layanan = 20000;
+		printf("\t\t  3. Layanan Express           : Rp. 10.000\n");
+	}
+	printf("\t\t|----------------------------------------------------------------------------------------|\n");
+	total = biaya_berat + biaya_jumlah + layanan;
+	printf("\t\t  Total Tagihan Keseluruhan : Rp. %0.f\n", total);
+	printf("\t\t|========================================================================================|\n");
+	printf("\t\t|________________________________________________________________________________________|\n");
+	
 }
