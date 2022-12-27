@@ -436,11 +436,14 @@ void perhitungan(){
 	char sbarang[100];
 	int total_sbanyak; //variabel prosedur satuan untuk meyimpan total banyak barang satuan//
 	int jasa, layanan;
+	char huruf[5]= "YN";
+	srand(time(0));
 	int nomor, //untuk mendapatkan nomor transaksi//
 		biaya_jumlah; //variabel total tagihan harga total jumlah prosedur satuan//
 	float biaya_berat, //variabel total tagihan harga berat barang per kg prosedur kiloan//
 		total; //total tagihan keseluruhan//
 	
+	//untuk mendapatkan waktu terima dan selesai//
 	struct tm *Sys_T;
     time_t Tval;
     Tval = time(NULL);
@@ -454,9 +457,12 @@ void perhitungan(){
 	printf("\t\t|==>                               *** JASA YUNA LAUNDRY ***                          <==|\n");
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
 	//untuk mendapatkan nomor transaksi atau resi//
-	printf("\t\t  Nomor Transaksi : %0.dYN\n", &nomor);
+	printf("\t\t  Nomor Transaksi : %s", huruf);
+	for(nomor = 0; nomor < 5; nomor++){
+		printf("%d", (rand()%4));
+	}
 	//untuk mendapatkan tanggal saat [rogram dijalankan//
-	printf("\t\t  Tanggal Terima  : %d - %d - %d\n", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	printf("\n\t\t  Tanggal Terima  : %d - %d - %d\n", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
 	//untuk mendapatkan tanggal selesai sesuai layanan yang dipilih//
 	if(proses.layanan == 1){
 		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+4, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
@@ -552,6 +558,11 @@ void pilih_transaksi(){
 	printf("\t\t|________________________________________________________________________________________|\n");
 	printf("\t\t  Pilih Jenis Pembayaran Anda : ");
 	proses.trans_pilih = validasi1();
+	if(proses.trans_pilih == 0){
+		perhitungan();
+	}else{
+		
+	}
 
 pilih_waktu();
 getchar();
@@ -574,12 +585,20 @@ void pilih_waktu(){
 	printf("\t\t|________________________________________________________________________________________|\n");
 	printf("\t\t  Pilih Waktu Pembayaran Anda : ");
 	proses.waktu_pilih = validasi1();
+	if(proses.waktu_pilih == 0){
+		pilih_transaksi();
+		
+	}else{
+		
+	}
 
 transaksi();
 getchar();
 }
 
 void transaksi(){
+	FILE *notalaundry;
+	
 	int pilihan, opsi; //prosedur input_data//
 	int k, kjumlah, kbanyak; //prosedur kiloan//
 	char kbarang[100];
@@ -588,11 +607,14 @@ void transaksi(){
 	char sbarang[100];
 	int total_sbanyak; //variabel prosedur satuan untuk meyimpan total banyak barang satuan//
 	int jasa, layanan;
-	int nomor, //untuk mendapatkan nomor transaksi//
+	char huruf[5]= "YN";
+	srand(time(0));
+	float nomor, //untuk mendapatkan nomor transaksi//
 		biaya_jumlah; //variabel total tagihan harga total jumlah prosedur satuan//
 	float biaya_berat, //variabel total tagihan harga berat barang per kg prosedur kiloan//
 		total; //total tagihan keseluruhan//
-	int uang, no_trans;
+	int uang;
+	double no_trans;
 	float kembalian;
 	
 	struct tm *Sys_T;
@@ -603,14 +625,15 @@ void transaksi(){
     
 	system("cls");
 	printf("\n\n\n\n\n");
+	notalaundry = fopen("NotaLaundry.txt", "a");
 	printf("\t\t ________________________________________________________________________________________ \n");
 	printf("\t\t|========================================================================================|\n");
 	printf("\t\t|==>                               *** JASA YUNA LAUNDRY ***                          <==|\n");
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
 	//untuk mendapatkan nomor transaksi atau resi//
-	printf("\t\t  Nomor Transaksi : %0.dYN\n", &nomor);
+	printf("\t\t  Nomor Transaksi : %s%d", huruf, rand());
 	//untuk mendapatkan tanggal saat [rogram dijalankan//
-	printf("\t\t  Tanggal Terima  : %d - %d - %d\n", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	printf("\n\t\t  Tanggal Terima  : %d - %d - %d\n", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
 	//untuk mendapatkan tanggal selesai sesuai layanan yang dipilih//
 	if(proses.layanan == 1){
 		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+4, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
@@ -704,7 +727,7 @@ void transaksi(){
 		if(proses.waktu_pilih == 1){
 			printf("\t\t  Masukkan Nomor Transaksi         : ");
 			no_trans = validasi5();
-			printf("\t\t  Status Pembayaran                : SUKSES!");
+			printf("\t\t  Status Pembayaran                : SUKSES!\n");
 			printf("\t\t|----------------------------------------------------------------------------------------|\n");
 			printf("\t\t|                   *** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***                       |\n");
 			printf("\t\t|========================================================================================|\n");
@@ -717,6 +740,111 @@ void transaksi(){
 			printf("\t\t|________________________________________________________________________________________|\n");
 		}
 	}
+	fprintf(notalaundry,"NOTA YUNA LAUNDRY\n");
+	fprintf(notalaundry,"================================================\n");
+	fprintf(notalaundry,"Nomor Transaksi : %s%d", huruf, rand());
+	fprintf(notalaundry,"\nTanggal Terima  : %d - %d - %d\n", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	if(proses.layanan == 1){
+		fprintf(notalaundry,"Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+4, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	
+	}else if(proses.layanan == 2){
+		fprintf(notalaundry,"Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+1, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	}
+	fprintf(notalaundry,"================================================\n");
+	if(proses.pilihan == 1){
+		fprintf(notalaundry,"DETAIL PESANAN KILOAN : \n");
+		fprintf(notalaundry,"1. Berat Barang Kiloan           : %0.2f Kg\n", proses.berat_barang);
+		fprintf(notalaundry,"   Total Harga Berat Barang      : %0.2f X Rp. 6.000\n", proses.berat_barang);
+		if(proses.jasa == 1){
+			fprintf(notalaundry,"2. Jenis Jasa                    : Cuci Basah\n");
+
+		}else if(proses.jasa == 2){
+			fprintf(notalaundry,"2. Jenis Jasa                    : Cuci Kering\n");
+		
+		}else if(proses.jasa == 3){
+			fprintf(notalaundry,"2. Jenis Jasa                    : Cuci Kering Setrika\n");
+		
+		}else if(proses.jasa == 4){
+			fprintf(notalaundry,"2. Jenis Jasa                    : Setrika\n");
+		
+		}else if(proses.jasa == 5){
+			fprintf(notalaundry,"2. Jenis Jasa                    : Dry Cleaning\n");
+		
+		}
+	}
+	if(proses.pilihan == 2){
+		fprintf(notalaundry,"DETAIL PESANAN SATUAN : \n");
+		fprintf(notalaundry,"1. Total Banyak Barang Satuan    : %d Barang\n", proses.total_sbanyak);
+		fprintf(notalaundry,"   Total Harga Barang            : %d X Rp. 20.000\n", proses.total_sbanyak);
+		if(proses.jasa == 1){
+			fprintf(notalaundry,"2. Jenis Jasa                    : Cuci Basah\n");
+		
+		}else if(proses.jasa == 2){
+			fprintf(notalaundry,"2. Jenis Jasa                    : Cuci Kering\n");
+		
+		}else if(proses.jasa == 3){
+			fprintf(notalaundry,"2. Jenis Jasa                    : Cuci Kering Setrika\n");
+		
+		}else if(proses.jasa == 4){
+			fprintf(notalaundry,"2. Jenis Jasa                    : Setrika\n");
+		
+		}else if(proses.jasa == 5){
+			fprintf(notalaundry,"2. Jenis Jasa                    : Dry Cleaning\n");
+		
+		}
+	}
+	fprintf(notalaundry,"------------------------------------------------\n");
+	fprintf(notalaundry,"DETAIL HARGA TOTAL : \n");
+	biaya_berat = proses.berat_barang * 6000;
+	fprintf(notalaundry,"1. Total Tagihan Kiloan          : Rp. %0.f\n", biaya_berat);
+	biaya_jumlah = proses.total_sbanyak * 20000;
+	fprintf(notalaundry,"2. Total Tagihan Satuan          : Rp. %d\n", biaya_jumlah);
+	if(proses.layanan == 1){
+		layanan = 0;
+		fprintf(notalaundry,"3. Layanan Reguler               : Rp. 0\n");
+	}else if(proses.layanan == 2){
+		layanan = 20000;
+		fprintf(notalaundry,"3. Layanan Express               : Rp. 10.000\n");
+	}
+	fprintf(notalaundry,"------------------------------------------------\n");
+	total = biaya_berat + biaya_jumlah + layanan;
+	fprintf(notalaundry,"Total Tagihan Keseluruhan       : Rp. %0.f\n", total);
+	fprintf(notalaundry,"------------------------------------------------\n");
+	if(proses.trans_pilih == 1){
+		if(proses.waktu_pilih == 1){
+			fprintf(notalaundry,"Masukkan Nominal                 : Rp.%d\n", uang);
+			kembalian = uang - total;
+			fprintf(notalaundry,"Kembalian                        : Rp. %0.f\n", kembalian);
+			fprintf(notalaundry,"------------------------------------------------\n");
+			fprintf(notalaundry,"*** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***\n");
+			fprintf(notalaundry,"================================================\n");
+			fprintf(notalaundry,"++++++++++++++++++++++++++++++++++++++++++++++++\n\n\n");
+			
+		}else if(proses.waktu_pilih == 2){
+			fprintf(notalaundry,"*** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***\n");
+			fprintf(notalaundry,"Silakan Lakukan Pembayaran Saat Pengambilan Laundry\n");
+			fprintf(notalaundry,"================================================\n");
+			fprintf(notalaundry,"++++++++++++++++++++++++++++++++++++++++++++++++\n\n\n");
+		}
+		
+	}else if(proses.trans_pilih == 2){
+		if(proses.waktu_pilih == 1){
+			fprintf(notalaundry,"Masukkan Nomor Transaksi         : %0.f\n", no_trans);
+			fprintf(notalaundry,"Status Pembayaran                : SUKSES!\n");
+			fprintf(notalaundry,"------------------------------------------------\n");
+			fprintf(notalaundry,"*** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***\n");
+			fprintf(notalaundry,"================================================\n");
+			fprintf(notalaundry,"++++++++++++++++++++++++++++++++++++++++++++++++\n\n\n");
+			
+		}else if(proses.waktu_pilih == 2){
+			fprintf(notalaundry,"*** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***\n");
+			fprintf(notalaundry,"Silakan Lakukan Pembayaran Saat Pengambilan Laundry\n");
+			fprintf(notalaundry,"================================================\n");
+			fprintf(notalaundry,"++++++++++++++++++++++++++++++++++++++++++++++++\n\n\n");
+		}
+	}
+	fclose(notalaundry);
+	
 	printf("\t\t Tekan Tombol Enter Untuk Melanjutkan...");
 	getchar(); //untuk bisa menampilkan kata diatas kemudian dilanjutkan ke prosedur pengulangan()//
 	pengulangan(); //untuk menunjukkan proses selanjutnya//
