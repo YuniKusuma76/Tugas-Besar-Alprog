@@ -460,7 +460,7 @@ void perhitungan(){
 	for(nomor = 0; nomor < 5; nomor++){
 		printf("%d", (rand()%4));
 	}
-	//untuk mendapatkan tanggal saat [rogram dijalankan//
+	//untuk mendapatkan tanggal saat program dijalankan//
 	printf("\n\t\t  Tanggal Terima  : %d - %d - %d\n", sistem_waktu->tm_mday, sistem_waktu->tm_mon+1, 1900+sistem_waktu->tm_year);
 	//untuk mendapatkan tanggal selesai sesuai layanan yang dipilih//
 	if(proses.layanan == 1){
@@ -632,7 +632,7 @@ void transaksi(){
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
 	//untuk mendapatkan nomor transaksi atau resi//
 	printf("\t\t  Nomor Transaksi : %s%d", huruf, rand());
-	//untuk mendapatkan tanggal saat [rogram dijalankan//
+	//untuk mendapatkan tanggal saat program dijalankan//
 	printf("\n\t\t  Tanggal Terima  : %d - %d - %d\n", sistem_waktu->tm_mday, sistem_waktu->tm_mon+1, 1900+sistem_waktu->tm_year);
 	//untuk mendapatkan tanggal selesai sesuai layanan yang dipilih//
 	if(proses.layanan == 1){
