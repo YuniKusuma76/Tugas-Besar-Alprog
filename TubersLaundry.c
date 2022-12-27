@@ -614,7 +614,7 @@ void transaksi(){
 	float biaya_berat, //variabel total tagihan harga berat barang per kg prosedur kiloan//
 		total; //total tagihan keseluruhan//
 	int uang;
-	double no_trans;
+	double no_trans[100];
 	float kembalian;
 	
 	struct tm *Sys_T;
@@ -726,7 +726,7 @@ void transaksi(){
 	}else if(proses.trans_pilih == 2){
 		if(proses.waktu_pilih == 1){
 			printf("\t\t  Masukkan Nomor Transaksi         : ");
-			no_trans = validasi5();
+			scanf("%0.f", &no_trans[100]);
 			printf("\t\t  Status Pembayaran                : SUKSES!\n");
 			printf("\t\t|----------------------------------------------------------------------------------------|\n");
 			printf("\t\t|                   *** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***                       |\n");
@@ -829,7 +829,7 @@ void transaksi(){
 		
 	}else if(proses.trans_pilih == 2){
 		if(proses.waktu_pilih == 1){
-			fprintf(notalaundry,"Masukkan Nomor Transaksi         : %0.f\n", no_trans);
+			fprintf(notalaundry,"Masukkan Nomor Transaksi         : %0lf\n", no_trans[100]);
 			fprintf(notalaundry,"Status Pembayaran                : SUKSES!\n");
 			fprintf(notalaundry,"------------------------------------------------\n");
 			fprintf(notalaundry,"*** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***\n");
@@ -846,7 +846,7 @@ void transaksi(){
 	fclose(notalaundry);
 	
 	printf("\t\t Tekan Tombol Enter Untuk Melanjutkan...");
-	getchar(); //untuk bisa menampilkan kata diatas kemudian dilanjutkan ke prosedur pengulangan()//
+	system("pause");
 	pengulangan(); //untuk menunjukkan proses selanjutnya//
 }
 
