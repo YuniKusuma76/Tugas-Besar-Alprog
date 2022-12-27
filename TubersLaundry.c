@@ -443,10 +443,10 @@ void perhitungan(){
 		total; //total tagihan keseluruhan//
 	
 	//untuk mendapatkan waktu terima dan selesai//
-	struct tm *Sys_T; //struct sistem time//
-    time_t Tval;
-    Tval = time(NULL);
-    Sys_T = localtime(&Tval); // Untuk mendapatkan waktu lokal komputer //
+	struct tm *sistem_waktu; //struct sistem time//
+    time_t waktu;
+    waktu = time(NULL);
+    sistem_waktu = localtime(&waktu); // Untuk mendapatkan waktu lokal komputer //
     // Sys_T = gmtime(&Tval); // // Untuk mendapatkan waktu komputer berbasis GMT/UTC //
     
 	system("cls");
@@ -461,13 +461,13 @@ void perhitungan(){
 		printf("%d", (rand()%4));
 	}
 	//untuk mendapatkan tanggal saat [rogram dijalankan//
-	printf("\n\t\t  Tanggal Terima  : %d - %d - %d\n", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	printf("\n\t\t  Tanggal Terima  : %d - %d - %d\n", sistem_waktu->tm_mday, sistem_waktu->tm_mon+1, 1900+sistem_waktu->tm_year);
 	//untuk mendapatkan tanggal selesai sesuai layanan yang dipilih//
 	if(proses.layanan == 1){
-		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+4, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", sistem_waktu->tm_mday+4, sistem_waktu->tm_mon+1, 1900+sistem_waktu->tm_year);
 	
 	}else if(proses.layanan == 2){
-		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+1, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", sistem_waktu->tm_mday+1, sistem_waktu->tm_mon+1, 1900+sistem_waktu->tm_year);
 	}
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
 	printf("\t\t|========================================================================================|\n");
@@ -616,10 +616,11 @@ void transaksi(){
 	double no_trans[100];
 	float kembalian;
 	
-	struct tm *Sys_T;
-    time_t Tval;
-    Tval = time(NULL);
-    Sys_T = localtime(&Tval); // Untuk mendapatkan waktu lokal komputer //
+	//untuk mendapatkan waktu terima dan selesai//
+	struct tm *sistem_waktu; //struct sistem time//
+    time_t waktu;
+    waktu = time(NULL);
+    sistem_waktu = localtime(&waktu); // Untuk mendapatkan waktu lokal komputer //
     // Sys_T = gmtime(&Tval); // // Untuk mendapatkan waktu komputer berbasis GMT/UTC //
     
 	system("cls");
@@ -632,13 +633,13 @@ void transaksi(){
 	//untuk mendapatkan nomor transaksi atau resi//
 	printf("\t\t  Nomor Transaksi : %s%d", huruf, rand());
 	//untuk mendapatkan tanggal saat [rogram dijalankan//
-	printf("\n\t\t  Tanggal Terima  : %d - %d - %d\n", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	printf("\n\t\t  Tanggal Terima  : %d - %d - %d\n", sistem_waktu->tm_mday, sistem_waktu->tm_mon+1, 1900+sistem_waktu->tm_year);
 	//untuk mendapatkan tanggal selesai sesuai layanan yang dipilih//
 	if(proses.layanan == 1){
-		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+4, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", sistem_waktu->tm_mday+4, sistem_waktu->tm_mon+1, 1900+sistem_waktu->tm_year);
 	
 	}else if(proses.layanan == 2){
-		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+1, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+		printf("\t\t  Tanggal Selesai : %d - %d - %d\n", sistem_waktu->tm_mday+1, sistem_waktu->tm_mon+1, 1900+sistem_waktu->tm_year);
 	}
 	printf("\t\t|----------------------------------------------------------------------------------------|\n");
 	printf("\t\t|========================================================================================|\n");
@@ -742,12 +743,12 @@ void transaksi(){
 	fprintf(notalaundry,"NOTA YUNA LAUNDRY\n");
 	fprintf(notalaundry,"================================================\n");
 	fprintf(notalaundry,"Nomor Transaksi : %s%d", huruf, rand());
-	fprintf(notalaundry,"\nTanggal Terima  : %d - %d - %d\n", Sys_T->tm_mday, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+	fprintf(notalaundry,"\nTanggal Terima  : %d - %d - %d\n", sistem_waktu->tm_mday, sistem_waktu->tm_mon+1, 1900+sistem_waktu->tm_year);
 	if(proses.layanan == 1){
-		fprintf(notalaundry,"Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+4, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+		fprintf(notalaundry,"Tanggal Selesai : %d - %d - %d\n", sistem_waktu->tm_mday+4, sistem_waktu->tm_mon+1, 1900+sistem_waktu->tm_year);
 	
 	}else if(proses.layanan == 2){
-		fprintf(notalaundry,"Tanggal Selesai : %d - %d - %d\n", Sys_T->tm_mday+1, Sys_T->tm_mon+1, 1900+Sys_T->tm_year);
+		fprintf(notalaundry,"Tanggal Selesai : %d - %d - %d\n", sistem_waktu->tm_mday+1, sistem_waktu->tm_mon+1, 1900+sistem_waktu->tm_year);
 	}
 	fprintf(notalaundry,"================================================\n");
 	if(proses.pilihan == 1){
