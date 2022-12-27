@@ -6,8 +6,6 @@
 #include <time.h>
 //library untuk perhitungan dan pengulangan switch case//
 #include <math.h>
-//library string//
-#include <string.h>
 
 void masuk(); //prosedur tampilan awal saat program berjalan//
 void cover(); //prosedur yang menampilkan nama program dan anggota kelompok//
@@ -17,10 +15,10 @@ void satuan(); //prosedur menghitung laundry, jika pada prosedur input_data memi
 void jasa(); //prosedur meng-inputkan jasa yang akan dilakukan//
 void layanan(); //prosedur meng-inpukan layanan yang akan dilakukan//
 void perhitungan(); //prosedur untuk menghitung transaksi laundry//
-void pilih_transaksi();
-void pilih_waktu();
-void transaksi();
-void pengulangan();
+void pilih_transaksi(); //prosedur untuk memilih jenis pembayaran//
+void pilih_waktu(); //prosedur untuk memilih waktu pembayaran//
+void transaksi(); //untuk menghitung transaksi pembayaran//
+void pengulangan(); //untuk melakukan pengulangan program//
 double validasi1(); //fungsi validasi pada prosedur input_data dan prosedur layanan//
 double validasi2(); //fungsi validasi pada prosedur kiloan bagian jumlah barang yang diinputkan//
 double validasi3(); //fungsi validasi pada prosedur kiloan bagain berat barangyang diinputkan//
@@ -28,6 +26,7 @@ double validasi4(); //fungsi validasi pada prosedur jasa//
 double validasi5(); //fungsi validasi pada prosedur satuan//
 double validasi6();
 
+//fungsi untuk mengurutkan proses yang berjalan lebih dahulu//
 int main(){
 	masuk();
 	system("pause");
@@ -444,7 +443,7 @@ void perhitungan(){
 		total; //total tagihan keseluruhan//
 	
 	//untuk mendapatkan waktu terima dan selesai//
-	struct tm *Sys_T;
+	struct tm *Sys_T; //struct sistem time//
     time_t Tval;
     Tval = time(NULL);
     Sys_T = localtime(&Tval); // Untuk mendapatkan waktu lokal komputer //
