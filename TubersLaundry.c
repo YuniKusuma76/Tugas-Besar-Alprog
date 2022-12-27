@@ -724,7 +724,6 @@ void transaksi(){
 		}
 		
 	}else if(proses.trans_pilih == 2){
-		if(proses.waktu_pilih == 1){
 			printf("\t\t  Masukkan Nomor Transaksi         : ");
 			scanf("%0.f", &no_trans[100]);
 			printf("\t\t  Status Pembayaran                : SUKSES!\n");
@@ -732,13 +731,6 @@ void transaksi(){
 			printf("\t\t|                   *** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***                       |\n");
 			printf("\t\t|========================================================================================|\n");
 			printf("\t\t|________________________________________________________________________________________|\n");
-			
-		}else if(proses.waktu_pilih == 2){
-			printf("\t\t|                   *** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***                       |\n");
-			printf("\t\t|                Silakan Lakukan Pembayaran Saat Pengambilan Laundry                     |\n");
-			printf("\t\t|========================================================================================|\n");
-			printf("\t\t|________________________________________________________________________________________|\n");
-		}
 	}
 	fprintf(notalaundry,"NOTA YUNA LAUNDRY\n");
 	fprintf(notalaundry,"================================================\n");
@@ -828,20 +820,12 @@ void transaksi(){
 		}
 		
 	}else if(proses.trans_pilih == 2){
-		if(proses.waktu_pilih == 1){
 			fprintf(notalaundry,"Masukkan Nomor Transaksi         : %0lf\n", no_trans[100]);
 			fprintf(notalaundry,"Status Pembayaran                : SUKSES!\n");
 			fprintf(notalaundry,"------------------------------------------------\n");
 			fprintf(notalaundry,"*** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***\n");
 			fprintf(notalaundry,"================================================\n");
 			fprintf(notalaundry,"++++++++++++++++++++++++++++++++++++++++++++++++\n\n\n");
-			
-		}else if(proses.waktu_pilih == 2){
-			fprintf(notalaundry,"*** TERIMAKASIH SUDAH MEMILIH YUNA LAUNDRY ***\n");
-			fprintf(notalaundry,"Silakan Lakukan Pembayaran Saat Pengambilan Laundry\n");
-			fprintf(notalaundry,"================================================\n");
-			fprintf(notalaundry,"++++++++++++++++++++++++++++++++++++++++++++++++\n\n\n");
-		}
 	}
 	fclose(notalaundry);
 	
