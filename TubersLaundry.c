@@ -559,8 +559,9 @@ void pilih_transaksi(){
 	proses.trans_pilih = validasi1();
 	if(proses.trans_pilih == 0){
 		perhitungan();
+	}else if(proses.trans_pilih == 2){
+		transaksi();
 	}else{
-		
 	}
 
 pilih_waktu();
@@ -830,7 +831,7 @@ void transaksi(){
 	fclose(notalaundry);
 	
 	printf("\t\t Tekan Tombol Enter Untuk Melanjutkan...");
-	system("pause");
+	getchar(); system("pause");
 	pengulangan(); //untuk menunjukkan proses selanjutnya//
 }
 
