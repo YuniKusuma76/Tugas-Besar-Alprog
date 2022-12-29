@@ -559,12 +559,12 @@ void pilih_transaksi(){
 	proses.trans_pilih = validasi1();
 	if(proses.trans_pilih == 0){
 		perhitungan();
-	}else{
-		
+	}else if(proses.trans_pilih == 1){
+		pilih_waktu();
+	}else if(proses.trans_pilih == 2){
+		transaksi();
 	}
 
-pilih_waktu();
-getchar();
 }
 
 void pilih_waktu(){
